@@ -1,0 +1,17 @@
+services:
+  mariadb:
+    image: mariadb:11
+    container_name: farmixpro-mariadb
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: secret
+      MARIADB_DATABASE: farmixpro
+      MARIADB_USER: farmixpro
+      MARIADB_PASSWORD: farmixpro
+    ports:
+      - "3306:3306"
+    volumes:
+      - farmixpro_mariadb_data:/var/lib/mysql
+
+volumes:
+  farmixpro_mariadb_data:
