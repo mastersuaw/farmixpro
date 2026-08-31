@@ -2,7 +2,7 @@
     "$schema": "https://getcomposer.org/schema.json",
     "name": "farmixpro/backend",
     "type": "project",
-    "description": "FarmixPro REST API — Laravel backend for companies, products, invoicing and accounting.",
+    "description": "FarmixPro REST API — Laravel backend for companies, products and invoicing.",
     "keywords": ["laravel", "farmixpro", "invoicing", "api"],
     "license": "MIT",
     "require": {

@@ -1,6 +1,6 @@
 # FarmixPro API
 
-Backend REST en Laravel 13 con MariaDB/MySQL y autenticación Sanctum. El dominio cubre empresas, clientes, productos/variantes, facturación, impuestos, pagos y cuentas contables.
+Backend REST en Laravel 13 con MariaDB/MySQL y autenticación Sanctum. El dominio cubre empresas, productos/variantes, facturación, impuestos y pagos.
 
 ## Requisitos
 
@@ -121,10 +121,6 @@ Prefijo: `/api`
 | POST | `/companies/{company}/switch` | Sí | Seleccionar empresa actual |
 | POST | `/companies/{company}/users` | Sí | Vincular usuario (`users_id` o `email`) |
 | DELETE | `/companies/{company}/users/{user}` | Sí | Desvincular usuario |
-| GET/POST | `/customers` | Sí + empresa | Clientes |
-| GET/PUT/DELETE | `/customers/{customer}` | Sí + empresa | Cliente |
-| GET/POST | `/accounts` | Sí + empresa | Cuentas contables (`parent_id` opcional) |
-| GET/PUT/DELETE | `/accounts/{account}` | Sí + empresa | Cuenta |
 | GET/POST | `/currencies` | Sí | Monedas (catálogo global) |
 | GET/PUT/DELETE | `/currencies/{currency}` | Sí | Moneda |
 | GET/POST | `/history-currencies` | Sí | Historial de tasas |
@@ -151,8 +147,6 @@ Prefijo: `/api`
 | GET/PUT/DELETE | `/methods-payments/{methodPayment}` | Sí + empresa | Método |
 | GET/POST | `/how-paid` | Sí + empresa | Pagos de factura |
 | GET/PUT/DELETE | `/how-paid/{howPaid}` | Sí + empresa | Pago |
-| GET/POST | `/balance-cuentas` | Sí + empresa | Movimientos contables |
-| GET/PUT/DELETE | `/balance-cuentas/{balanceCuenta}` | Sí + empresa | Movimiento |
 
 ### Crear factura anidada
 
@@ -162,19 +156,17 @@ Prefijo: `/api`
 
 ## Tablas
 
-`users`, `companies`, `users_companies`, `customers`, `accounts`, `currencies`, `history_currencies`, `taxes`, `products`, `variants_products`, `variants_products_attributes`, `channels`, `variants_products_channels`, `invoices`, `invoces_products`, `invoces_taxes`, `methods_payments`, `how_paid`, `balance_cuentas`.
+`users`, `companies`, `users_companies`, `currencies`, `history_currencies`, `taxes`, `products`, `variants_products`, `variants_products_attributes`, `channels`, `variants_products_channels`, `invoices`, `invoces_products`, `invoces_taxes`, `methods_payments`, `how_paid`.
 
 `users` conserva el esquema Laravel (email único, `remember_token`, timestamps). El resto usa `unsignedBigInteger` + timestamps e índices/FK.
 
 ## Desviaciones respecto al diagrama
 
-1. `accounts.parent_id` estaba marcado como PK; es un FK auto-referenciado nullable a `accounts.id`.
-2. `variants_products` no tenía `products_id`; se añadió FK a `products.id`.
-3. Se conservan las faltas de ortografía del diagrama en **tablas/columnas**: `invoces_products`, `invoces_taxes`, `is_avaliable`. Las rutas REST usan inglés correcto (`/invoices`, `/invoice-products`, `/invoice-taxes`). El API también expone `is_available` como alias.
-4. `invoices.status`: `open`, `closed`, `cancelled` (por defecto `open`).
-5. `balance_cuentas.tipo_referencia`: `invoice`, `payment`, `adjustment`.
-6. `currencies` y `history_currencies` no tienen `companies_id` (catálogo global). El resto de negocio se scopea por empresa.
-7. IDs `unsignedBigInteger` y `timestamps` en todas las tablas (el diagrama no los detallaba).
+1. `variants_products` no tenía `products_id`; se añadió FK a `products.id`.
+2. Se conservan las faltas de ortografía del diagrama en **tablas/columnas**: `invoces_products`, `invoces_taxes`, `is_avaliable`. Las rutas REST usan inglés correcto (`/invoices`, `/invoice-products`, `/invoice-taxes`). El API también expone `is_available` como alias.
+3. `invoices.status`: `open`, `closed`, `cancelled` (por defecto `open`).
+4. `currencies` y `history_currencies` no tienen `companies_id` (catálogo global). El resto de negocio se scopea por empresa.
+5. IDs `unsignedBigInteger` y `timestamps` en todas las tablas (el diagrama no los detallaba).
 
 ## CORS / SPA
 
@@ -190,4 +182,4 @@ php artisan test
 
 ## Estilo de modelos
 
-Clases en PascalCase alineadas a las tablas (`Companies`, `VariantsProducts`, `InvocesProducts`, `HowPaid`, `BalanceCuentas`), FKs explícitas (`users_id`, `companies_id`, `clientes_id`, `facturas_id`, `monedas_id`) y relaciones BelongsTo / HasMany / BelongsToMany con esas claves.
+Clases en PascalCase alineadas a las tablas (`Companies`, `VariantsProducts`, `InvocesProducts`, `HowPaid`), FKs explícitas (`users_id`, `companies_id`, `facturas_id`, `monedas_id`) y relaciones BelongsTo / HasMany / BelongsToMany con esas claves.

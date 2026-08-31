@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
     'companies_id',
     'who_open',
     'who_close',
-    'clientes_id',
     'fecha',
     'total',
     'subtotal',
@@ -58,16 +57,6 @@ class Invoices extends Model
     public function closer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'who_close');
-    }
-
-    public function customers(): BelongsTo
-    {
-        return $this->belongsTo(Customers::class, 'clientes_id');
-    }
-
-    public function customer(): BelongsTo
-    {
-        return $this->belongsTo(Customers::class, 'clientes_id');
     }
 
     public function invocesProducts(): HasMany

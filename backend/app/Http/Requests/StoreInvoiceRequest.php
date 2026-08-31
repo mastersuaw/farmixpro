@@ -15,7 +15,6 @@ class StoreInvoiceRequest extends CompanyFormRequest
         $required = $this->isMethod('POST') ? 'required' : 'sometimes';
 
         return [
-            'clientes_id' => [$required, 'integer', $this->existsInCompany('customers')],
             'fecha' => [$required, 'date'],
             'total' => ['nullable', 'numeric', 'min:0'],
             'subtotal' => ['nullable', 'numeric', 'min:0'],

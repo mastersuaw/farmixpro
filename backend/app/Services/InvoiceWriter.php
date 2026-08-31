@@ -23,7 +23,6 @@ class InvoiceWriter
                 'companies_id' => $companyId,
                 'who_open' => $userId,
                 'who_close' => $this->whoClose($status, $data, $userId),
-                'clientes_id' => $data['clientes_id'],
                 'fecha' => $data['fecha'],
                 'subtotal' => $data['subtotal'] ?? 0,
                 'total' => $data['total'] ?? 0,
@@ -48,7 +47,6 @@ class InvoiceWriter
                 : $invoice->status;
 
             $payload = collect($data)->only([
-                'clientes_id',
                 'fecha',
                 'subtotal',
                 'total',
@@ -73,7 +71,6 @@ class InvoiceWriter
     public function relations(): array
     {
         return [
-            'customer',
             'opener',
             'closer',
             'invocesProducts.variant',

@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Enums\InvoiceStatus;
 use App\Models\Currencies;
-use App\Models\Customers;
 use App\Models\HistoryCurrencies;
 use App\Models\MethodsPayments;
 use App\Models\Products;
@@ -21,7 +20,6 @@ class InvoiceTest extends TestCase
     {
         [$user, $company] = $this->actingAsCompanyUser();
 
-        $customer = Customers::factory()->create(['companies_id' => $company->id]);
         $product = Products::factory()->create(['companies_id' => $company->id, 'precio' => 10000]);
         $variant = VariantsProducts::factory()->create([
             'companies_id' => $company->id,
@@ -45,7 +43,6 @@ class InvoiceTest extends TestCase
         ]);
 
         $response = $this->actingAs($user, 'sanctum')->postJson('/api/invoices', [
-            'clientes_id' => $customer->id,
             'fecha' => now()->toDateString(),
             'status' => InvoiceStatus::Open->value,
             'products' => [
@@ -72,7 +69,6 @@ class InvoiceTest extends TestCase
 
         $response->assertCreated()
             ->assertJsonPath('success', true)
-            ->assertJsonPath('data.clientes_id', $customer->id)
             ->assertJsonPath('data.status', 'open')
             ->assertJsonPath('data.subtotal', 20000)
             ->assertJsonPath('data.total', 23800)
@@ -88,18 +84,5 @@ class InvoiceTest extends TestCase
         $this->assertDatabaseCount('invoces_products', 1);
         $this->assertDatabaseCount('invoces_taxes', 1);
         $this->assertDatabaseCount('how_paid', 1);
-    }
-
-    public function test_invoice_requires_customer_from_current_company(): void
-    {
-        [$user] = $this->actingAsCompanyUser();
-        $foreignCustomer = Customers::factory()->create();
-
-        $this->actingAs($user, 'sanctum')
-            ->postJson('/api/invoices', [
-                'clientes_id' => $foreignCustomer->id,
-                'fecha' => now()->toDateString(),
-            ])
-            ->assertStatus(422);
     }
 }

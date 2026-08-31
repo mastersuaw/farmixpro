@@ -1,12 +1,9 @@
 <?php
 
-use App\Http\Controllers\Api\AccountController;
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\BalanceCuentaController;
 use App\Http\Controllers\Api\ChannelController;
 use App\Http\Controllers\Api\CompanyController;
 use App\Http\Controllers\Api\CurrencyController;
-use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\HealthController;
 use App\Http\Controllers\Api\HistoryCurrencyController;
 use App\Http\Controllers\Api\HowPaidController;
@@ -45,8 +42,6 @@ Route::middleware('auth:sanctum')->group(function (): void {
         ->parameters(['history-currencies' => 'historyCurrency']);
 
     Route::middleware('company')->group(function (): void {
-        Route::apiResource('customers', CustomerController::class);
-        Route::apiResource('accounts', AccountController::class);
         Route::apiResource('taxes', TaxController::class);
         Route::apiResource('products', ProductController::class);
         Route::apiResource('variants-products', VariantProductController::class)
@@ -65,7 +60,5 @@ Route::middleware('auth:sanctum')->group(function (): void {
             ->parameters(['methods-payments' => 'methodPayment']);
         Route::apiResource('how-paid', HowPaidController::class)
             ->parameters(['how-paid' => 'howPaid']);
-        Route::apiResource('balance-cuentas', BalanceCuentaController::class)
-            ->parameters(['balance-cuentas' => 'balanceCuenta']);
     });
 });

@@ -28,16 +28,6 @@ class Companies extends Model
         return $this->hasMany(UsersCompanies::class, 'companies_id');
     }
 
-    public function customers(): HasMany
-    {
-        return $this->hasMany(Customers::class, 'companies_id');
-    }
-
-    public function accounts(): HasMany
-    {
-        return $this->hasMany(Accounts::class, 'companies_id');
-    }
-
     public function taxes(): HasMany
     {
         return $this->hasMany(Taxes::class, 'companies_id');
@@ -66,10 +56,5 @@ class Companies extends Model
     public function methodsPayments(): HasMany
     {
         return $this->hasMany(MethodsPayments::class, 'companies_id');
-    }
-
-    public function balanceCuentas(): HasMany
-    {
-        return $this->hasMany(BalanceCuentas::class, 'companies_id');
     }
 }

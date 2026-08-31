@@ -24,29 +24,6 @@ return new class extends Migration
             $table->unique(['users_id', 'companies_id']);
         });
 
-        Schema::create('customers', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('companies_id')->constrained('companies')->cascadeOnDelete();
-            $table->string('nombre');
-            $table->string('card_id')->nullable();
-            $table->text('direccion')->nullable();
-            $table->string('telefono')->nullable();
-            $table->timestamps();
-        });
-
-        Schema::create('accounts', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('companies_id')->constrained('companies')->cascadeOnDelete();
-            $table->unsignedBigInteger('parent_id')->nullable();
-            $table->string('nombre');
-            $table->string('codigo')->nullable();
-            $table->string('descripcion')->nullable();
-            $table->timestamps();
-
-            $table->index('parent_id');
-            $table->foreign('parent_id')->references('id')->on('accounts')->nullOnDelete();
-        });
-
         Schema::create('currencies', function (Blueprint $table) {
             $table->id();
             $table->string('codigo');
@@ -131,7 +108,6 @@ return new class extends Migration
             $table->foreignId('companies_id')->constrained('companies')->cascadeOnDelete();
             $table->foreignId('who_open')->constrained('users')->restrictOnDelete();
             $table->unsignedBigInteger('who_close')->nullable();
-            $table->foreignId('clientes_id')->constrained('customers')->restrictOnDelete();
             $table->date('fecha');
             $table->double('total')->default(0);
             $table->double('subtotal')->default(0);
@@ -180,23 +156,10 @@ return new class extends Migration
             $table->double('rate')->default(1);
             $table->timestamps();
         });
-
-        Schema::create('balance_cuentas', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('companies_id')->constrained('companies')->cascadeOnDelete();
-            $table->foreignId('cuentas_id')->constrained('accounts')->restrictOnDelete();
-            $table->string('referencia')->nullable();
-            $table->string('tipo_referencia', 32);
-            $table->double('debito')->default(0);
-            $table->double('credito')->default(0);
-            $table->timestamp('fecha');
-            $table->timestamps();
-        });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('balance_cuentas');
         Schema::dropIfExists('how_paid');
         Schema::dropIfExists('methods_payments');
         Schema::dropIfExists('invoces_taxes');
@@ -210,8 +173,6 @@ return new class extends Migration
         Schema::dropIfExists('taxes');
         Schema::dropIfExists('history_currencies');
         Schema::dropIfExists('currencies');
-        Schema::dropIfExists('accounts');
-        Schema::dropIfExists('customers');
         Schema::dropIfExists('users_companies');
         Schema::dropIfExists('companies');
     }
