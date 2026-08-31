@@ -29,7 +29,6 @@ class StoreInvoiceRequest extends CompanyFormRequest
             'taxes.*.impuestos_id' => ['required', 'integer', $this->existsInCompany('taxes')],
             'payments' => ['sometimes', 'array'],
             'payments.*.metodos_pagos_id' => ['required', 'integer', $this->existsInCompany('methods_payments')],
-            'payments.*.monedas_id' => ['required', 'integer', 'exists:history_currencies,id'],
             'payments.*.amount' => ['required', 'numeric', 'min:0'],
             'payments.*.discount' => ['nullable', 'numeric', 'min:0'],
             'payments.*.rate' => ['nullable', 'numeric', 'min:0'],

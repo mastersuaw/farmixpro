@@ -76,7 +76,6 @@ class InvoiceWriter
             'invocesProducts.variant',
             'invocesTaxes.tax',
             'howPaid.methodPayment',
-            'howPaid.historyCurrencies',
         ];
     }
 
@@ -121,7 +120,6 @@ class InvoiceWriter
                     'companies_id' => $companyId,
                     'metodos_pagos_id' => $payment['metodos_pagos_id'],
                     'facturas_id' => $invoice->id,
-                    'monedas_id' => $payment['monedas_id'],
                     'amount' => $payment['amount'],
                     'discount' => $payment['discount'] ?? 0,
                     'rate' => $payment['rate'] ?? 1,

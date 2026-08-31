@@ -121,10 +121,6 @@ Prefijo: `/api`
 | POST | `/companies/{company}/switch` | Sí | Seleccionar empresa actual |
 | POST | `/companies/{company}/users` | Sí | Vincular usuario (`users_id` o `email`) |
 | DELETE | `/companies/{company}/users/{user}` | Sí | Desvincular usuario |
-| GET/POST | `/currencies` | Sí | Monedas (catálogo global) |
-| GET/PUT/DELETE | `/currencies/{currency}` | Sí | Moneda |
-| GET/POST | `/history-currencies` | Sí | Historial de tasas |
-| GET/PUT/DELETE | `/history-currencies/{historyCurrency}` | Sí | Tasa histórica |
 | GET/POST | `/taxes` | Sí + empresa | Impuestos |
 | GET/PUT/DELETE | `/taxes/{tax}` | Sí + empresa | Impuesto |
 | GET/POST | `/products` | Sí + empresa | Productos |
@@ -152,11 +148,9 @@ Prefijo: `/api`
 
 `POST /api/invoices` acepta `products`, `taxes` y `payments` en el mismo request. Si no envías `subtotal`/`total`, se calculan: subtotal = Σ(cantidad × precio − descuento); total = subtotal + impuestos (`tasa` % sobre el subtotal).
 
-`how_paid.monedas_id` apunta a `history_currencies.id` (no a `currencies.id`), como en el diagrama.
-
 ## Tablas
 
-`users`, `companies`, `users_companies`, `currencies`, `history_currencies`, `taxes`, `products`, `variants_products`, `variants_products_attributes`, `channels`, `variants_products_channels`, `invoices`, `invoces_products`, `invoces_taxes`, `methods_payments`, `how_paid`.
+`users`, `companies`, `users_companies`, `taxes`, `products`, `variants_products`, `variants_products_attributes`, `channels`, `variants_products_channels`, `invoices`, `invoces_products`, `invoces_taxes`, `methods_payments`, `how_paid`.
 
 `users` conserva el esquema Laravel (email único, `remember_token`, timestamps). El resto usa `unsignedBigInteger` + timestamps e índices/FK.
 
@@ -165,8 +159,7 @@ Prefijo: `/api`
 1. `variants_products` no tenía `products_id`; se añadió FK a `products.id`.
 2. Se conservan las faltas de ortografía del diagrama en **tablas/columnas**: `invoces_products`, `invoces_taxes`, `is_avaliable`. Las rutas REST usan inglés correcto (`/invoices`, `/invoice-products`, `/invoice-taxes`). El API también expone `is_available` como alias.
 3. `invoices.status`: `open`, `closed`, `cancelled` (por defecto `open`).
-4. `currencies` y `history_currencies` no tienen `companies_id` (catálogo global). El resto de negocio se scopea por empresa.
-5. IDs `unsignedBigInteger` y `timestamps` en todas las tablas (el diagrama no los detallaba).
+4. IDs `unsignedBigInteger` y `timestamps` en todas las tablas (el diagrama no los detallaba).
 
 ## CORS / SPA
 
@@ -182,4 +175,4 @@ php artisan test
 
 ## Estilo de modelos
 
-Clases en PascalCase alineadas a las tablas (`Companies`, `VariantsProducts`, `InvocesProducts`, `HowPaid`), FKs explícitas (`users_id`, `companies_id`, `facturas_id`, `monedas_id`) y relaciones BelongsTo / HasMany / BelongsToMany con esas claves.
+Clases en PascalCase alineadas a las tablas (`Companies`, `VariantsProducts`, `InvocesProducts`, `HowPaid`), FKs explícitas (`users_id`, `companies_id`, `facturas_id`) y relaciones BelongsTo / HasMany / BelongsToMany con esas claves.

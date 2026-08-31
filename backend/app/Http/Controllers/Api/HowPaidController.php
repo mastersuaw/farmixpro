@@ -15,7 +15,7 @@ class HowPaidController extends Controller
     public function index(Request $request): JsonResponse
     {
         $rows = $this->forCompany($request, HowPaid::class)
-            ->with(['methodPayment', 'historyCurrencies'])
+            ->with(['methodPayment'])
             ->latest('id')
             ->paginate((int) $request->integer('per_page', 15));
 
@@ -27,7 +27,7 @@ class HowPaidController extends Controller
         $row = HowPaid::query()->create($this->withCompany($request, $request->validated()));
 
         return ApiResponse::created(
-            new HowPaidResource($row->load(['methodPayment', 'historyCurrencies'])),
+            new HowPaidResource($row->load(['methodPayment'])),
             'Pago registrado correctamente.',
         );
     }
@@ -37,7 +37,7 @@ class HowPaidController extends Controller
         $this->assertCompanyResource($request, $howPaid);
 
         return ApiResponse::success(
-            new HowPaidResource($howPaid->load(['methodPayment', 'historyCurrencies'])),
+            new HowPaidResource($howPaid->load(['methodPayment'])),
             'Pago obtenido correctamente.',
         );
     }
@@ -48,7 +48,7 @@ class HowPaidController extends Controller
         $howPaid->update($request->validated());
 
         return ApiResponse::success(
-            new HowPaidResource($howPaid->fresh(['methodPayment', 'historyCurrencies'])),
+            new HowPaidResource($howPaid->fresh(['methodPayment'])),
             'Pago actualizado correctamente.',
         );
     }

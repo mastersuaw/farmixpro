@@ -3,8 +3,6 @@
 namespace Tests\Feature;
 
 use App\Enums\InvoiceStatus;
-use App\Models\Currencies;
-use App\Models\HistoryCurrencies;
 use App\Models\MethodsPayments;
 use App\Models\Products;
 use App\Models\Taxes;
@@ -35,12 +33,6 @@ class InvoiceTest extends TestCase
             'companies_id' => $company->id,
             'nombre' => 'Efectivo',
         ]);
-        $currency = Currencies::factory()->create(['codigo' => 'COP', 'tasa' => 1]);
-        $history = HistoryCurrencies::factory()->create([
-            'monedas_id' => $currency->id,
-            'tasa' => 1,
-            'fecha' => now()->toDateString(),
-        ]);
 
         $response = $this->actingAs($user, 'sanctum')->postJson('/api/invoices', [
             'fecha' => now()->toDateString(),
@@ -59,7 +51,6 @@ class InvoiceTest extends TestCase
             'payments' => [
                 [
                     'metodos_pagos_id' => $method->id,
-                    'monedas_id' => $history->id,
                     'amount' => 23800,
                     'discount' => 0,
                     'rate' => 1,

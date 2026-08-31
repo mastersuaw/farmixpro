@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
     'companies_id',
     'metodos_pagos_id',
     'facturas_id',
-    'monedas_id',
     'amount',
     'discount',
     'rate',
@@ -62,10 +61,5 @@ class HowPaid extends Model
     public function invoice(): BelongsTo
     {
         return $this->belongsTo(Invoices::class, 'facturas_id');
-    }
-
-    public function historyCurrencies(): BelongsTo
-    {
-        return $this->belongsTo(HistoryCurrencies::class, 'monedas_id');
     }
 }

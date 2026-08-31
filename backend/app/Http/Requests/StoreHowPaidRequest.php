@@ -14,7 +14,6 @@ class StoreHowPaidRequest extends CompanyFormRequest
         return [
             'metodos_pagos_id' => [$required, 'integer', $this->existsInCompany('methods_payments')],
             'facturas_id' => [$required, 'integer', $this->existsInCompany('invoices')],
-            'monedas_id' => [$required, 'integer', 'exists:history_currencies,id'],
             'amount' => [$required, 'numeric', 'min:0'],
             'discount' => ['nullable', 'numeric', 'min:0'],
             'rate' => ['nullable', 'numeric', 'min:0'],

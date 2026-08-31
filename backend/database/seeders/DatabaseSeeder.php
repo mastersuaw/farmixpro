@@ -5,8 +5,6 @@ namespace Database\Seeders;
 use App\Enums\InvoiceStatus;
 use App\Models\Channels;
 use App\Models\Companies;
-use App\Models\Currencies;
-use App\Models\HistoryCurrencies;
 use App\Models\HowPaid;
 use App\Models\InvocesProducts;
 use App\Models\InvocesTaxes;
@@ -40,24 +38,6 @@ class DatabaseSeeder extends Seeder
         UsersCompanies::query()->create([
             'users_id' => $user->id,
             'companies_id' => $company->id,
-        ]);
-
-        $cop = Currencies::query()->create([
-            'codigo' => 'COP',
-            'nombre' => 'Peso colombiano',
-            'tasa' => 1,
-        ]);
-
-        Currencies::query()->create([
-            'codigo' => 'USD',
-            'nombre' => 'Dólar estadounidense',
-            'tasa' => 4100,
-        ]);
-
-        $copHistory = HistoryCurrencies::query()->create([
-            'monedas_id' => $cop->id,
-            'tasa' => 1,
-            'fecha' => now()->toDateString(),
         ]);
 
         $iva = Taxes::query()->create([
@@ -161,7 +141,6 @@ class DatabaseSeeder extends Seeder
             'companies_id' => $company->id,
             'metodos_pagos_id' => $cash->id,
             'facturas_id' => $invoice->id,
-            'monedas_id' => $copHistory->id,
             'amount' => 44030,
             'discount' => 0,
             'rate' => 1,

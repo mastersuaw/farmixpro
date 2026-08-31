@@ -3,9 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ChannelController;
 use App\Http\Controllers\Api\CompanyController;
-use App\Http\Controllers\Api\CurrencyController;
 use App\Http\Controllers\Api\HealthController;
-use App\Http\Controllers\Api\HistoryCurrencyController;
 use App\Http\Controllers\Api\HowPaidController;
 use App\Http\Controllers\Api\InvoiceController;
 use App\Http\Controllers\Api\InvoiceProductController;
@@ -36,10 +34,6 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::post('companies/{company}/users', [CompanyController::class, 'attachUser']);
     Route::delete('companies/{company}/users/{user}', [CompanyController::class, 'detachUser']);
     Route::apiResource('companies', CompanyController::class);
-
-    Route::apiResource('currencies', CurrencyController::class);
-    Route::apiResource('history-currencies', HistoryCurrencyController::class)
-        ->parameters(['history-currencies' => 'historyCurrency']);
 
     Route::middleware('company')->group(function (): void {
         Route::apiResource('taxes', TaxController::class);
