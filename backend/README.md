@@ -37,8 +37,6 @@ docker compose up -d
 php artisan migrate --seed
 ```
 
-phpMyAdmin: http://localhost:8080 (usuario `farmixpro` / `farmixpro`).
-
 ### Base de datos local
 
 Crea la base `farmixpro` y luego:
