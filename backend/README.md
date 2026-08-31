@@ -48,6 +48,17 @@ php artisan serve
 
 API: `http://localhost:8000/api`
 
+## Documentación de la API (Scramble)
+
+Con el servidor en marcha (`php artisan serve`):
+
+- UI interactiva: [http://localhost:8000/docs/api](http://localhost:8000/docs/api)
+- OpenAPI JSON: [http://localhost:8000/docs/api.json](http://localhost:8000/docs/api.json)
+
+En `local`, `development` y `testing` las docs son públicas. En producción el gate `viewApiDocs` exige un usuario autenticado (sesión web).
+
+Para exportar el spec: `php artisan scramble:export`.
+
 ## Usuario de prueba (seeder)
 
 - Email: `admin@farmixpro.test`
