@@ -1,0 +1,169 @@
+/* RESET */
+
+*before, *after, *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+}
+
+:root{
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+
+    --btn-padding: 10px 20px;
+    --btn-border-radius: 5px;
+
+    --input-sm: 5px;
+    --input-md: 10px;
+    --input-lg: 15px;
+
+    --font-size-small: 12px;
+    --font-size-medium: 16px;
+    --font-size-large: 20px;
+    --font-size-xlarge: 24px;
+
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn{
+    display: inline-block;
+    width: 200px;
+    height: 40px;
+    border-radius: var(--btn-border-radius);
+    font-size: var(--font-size-medium);
+    box-shadow: var(--box-shadow);
+}
+
+.btn-primary{
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover{
+    background-color: darken(var(--primary-color), 10%);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.btn-secondary{
+    background-color: var(--secondary-color);
+    color: var(--light-color);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover{
+    background-color: darken(var(--secondary-color), 10%);
+    color: var(--secondary-color);
+    border: 1px solid var(--secondary-color);
+}
+
+.btn-success{
+    background-color: var(--success-color);
+    color: var(--light-color);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-success:hover{
+    background-color: darken(var(--success-color), 10%);
+    color: var(--success-color);
+    border: 1px solid var(--success-color);
+}
+
+.btn-danger{
+    background-color: var(--danger-color);
+    color: var(--light-color);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-danger:hover{
+    background-color: darken(var(--danger-color), 10%);
+    color: var(--danger-color);
+    border: 1px solid var(--danger-color);
+}
+
+.btn-warning{
+    background-color: var(--warning-color);
+    color: var(--dark-color);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-warning:hover{
+    background-color: darken(var(--warning-color), 10%);
+    color: var(--warning-color);
+    border: 1px solid var(--warning-color);
+}
+
+.btn-info{
+    background-color: var(--info-color);
+    color: var(--light-color);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-info:hover{
+    background-color: darken(var(--info-color), 10%);
+    color: var(--info-color);
+    border: 1px solid var(--info-color);
+}
+
+.input-container{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.form-label{
+    margin-bottom: 5px;
+    font-size: var(--font-size-medium);
+    color: var(--dark-color);
+}
+
+.favicon-sm{
+    width: 200px;
+}
+
+.favicon-md{
+    width: 400px;
+}
+
+.favicon-lg{
+    width: 600px;
+}
+
+.auth-container>h2{
+    text-align: center;
+    font-size: var(--font-size-xlarge);
+}
+
+.auth-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    width: 300px;
+    box-shadow: var(--box-shadow);
+}
