@@ -1,11 +1,11 @@
-export default function Button({name, cType, bType, btnName, disabled}){
+export default function Button({name, cType, bType,btnName}){
 
     return(
-        <button
-            className={cType}
+        <button 
+            className={cType} 
             type={bType}
             name={btnName}
-            disabled={disabled}
-            >{name}</button>
+            >{name}
+        </button>
     )
 }
