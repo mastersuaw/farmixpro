@@ -1,0 +1,143 @@
+/* Utilidades para las paginas de login/registro (el cuadro en si
+   lo pintan los componentes compartidos via App.css) */
+
+.page-center {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+}
+
+.page-center__error {
+  color: var(--danger-color);
+  font-size: var(--font-size-small);
+  max-width: 300px;
+  text-align: center;
+}
+
+.page-center__field-error {
+  color: var(--danger-color);
+  font-size: var(--font-size-small);
+  margin-top: 4px;
+}
+
+.page-center__switch {
+  font-size: var(--font-size-small);
+  color: var(--secondary-color);
+}
+
+/* --- Dashboard --- */
+
+.dashboard {
+  min-height: 100vh;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  border-bottom: 1px solid #e0e0e0;
+  background: var(--light-color);
+}
+
+.dashboard-header__user {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: var(--font-size-small);
+  color: var(--dark-color);
+}
+
+.dashboard-main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.dashboard-greeting h1 {
+  font-size: var(--font-size-xlarge);
+  margin-bottom: 6px;
+}
+
+.dashboard-greeting p {
+  color: var(--secondary-color);
+}
+
+.company-prompt {
+  margin-top: 32px;
+  border-radius: var(--btn-border-radius);
+  padding: 28px;
+  background: var(--light-color);
+  box-shadow: var(--box-shadow);
+  max-width: 420px;
+}
+
+.company-prompt h2 {
+  font-size: var(--font-size-large);
+  margin-bottom: 8px;
+}
+
+.company-prompt p {
+  color: var(--secondary-color);
+  font-size: var(--font-size-small);
+  margin-bottom: 20px;
+}
+
+.company-prompt input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: var(--btn-border-radius);
+}
+
+.form-error {
+  background: #fbeae8;
+  color: var(--danger-color);
+  border-radius: var(--btn-border-radius);
+  padding: 10px 12px;
+  font-size: var(--font-size-small);
+  margin-bottom: 12px;
+}
+
+.product-preview {
+  margin-top: 40px;
+  max-width: 420px;
+}
+
+.product-preview h2 {
+  font-size: var(--font-size-large);
+  margin-bottom: 12px;
+}
+
+.product-preview .empty {
+  color: var(--secondary-color);
+  font-size: var(--font-size-small);
+}
+
+.product-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid #e0e0e0;
+}
+
+.product-list li {
+  padding: 10px 2px;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: var(--font-size-small);
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  font-size: var(--font-size-small);
+}
