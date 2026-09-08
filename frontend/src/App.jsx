@@ -1,11 +1,14 @@
 import './App.css'
 import { AppProviders } from '@/app/providers';
 import { AppRouter } from '@/app/router';
+import { ToastProvider } from '@/shared/ToastContext';
 
 function App() {
   return (
     <AppProviders>
-      <AppRouter />
+      <ToastProvider>
+        <AppRouter />
+      </ToastProvider>
     </AppProviders>
   );
 }

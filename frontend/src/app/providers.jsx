@@ -10,9 +10,12 @@ import {
 import { AuthContext } from './auth-context';
 
 function extractToken(data) {
-  // register anida el token en data.user.token; por si login no lo
-  // hace igual, cubrimos las dos formas.
+  // login manda el token directo, register lo anida en data.user.token
   return data?.token ?? data?.user?.token ?? null;
+}
+
+function extractCompanies(data) {
+  return data?.companies ?? data?.user?.companies ?? [];
 }
 
 function AuthProvider({ children }) {
@@ -21,6 +24,15 @@ function AuthProvider({ children }) {
   const [currentCompanyId, setCurrentCompanyIdState] = useState(getCurrentCompanyId());
   const [loading, setLoading] = useState(() => !!getToken());
 
+  function applyCompanies(list) {
+    setCompanies(list);
+    const stored = getCurrentCompanyId();
+    const stillValid = stored && list.some((c) => String(c.id) === String(stored));
+    const resolved = stillValid ? stored : list[0]?.id ?? null;
+    if (resolved) setCurrentCompany(resolved);
+    setCurrentCompanyIdState(resolved);
+  }
+
   useEffect(() => {
     if (!getToken()) return; // sin token no hay nada que restaurar
 
@@ -28,7 +40,7 @@ function AuthProvider({ children }) {
       .get('/auth/me')
       .then((data) => {
         setUser(data.user);
-        setCompanies(data.companies || []);
+        applyCompanies(extractCompanies(data));
       })
       .catch(() => clearSession())
       .finally(() => setLoading(false));
@@ -37,10 +49,9 @@ function AuthProvider({ children }) {
   async function login(email, password) {
     const data = await api.post('/auth/login', { email, password });
     saveToken(extractToken(data));
-    const me = await api.get('/auth/me');
-    setUser(me.user);
-    setCompanies(me.companies || []);
-    return me;
+    setUser(data.user);
+    applyCompanies(extractCompanies(data));
+    return data;
   }
 
   async function register(name, email, password, password_confirmation) {
@@ -51,10 +62,9 @@ function AuthProvider({ children }) {
       password_confirmation,
     });
     saveToken(extractToken(data));
-    const me = await api.get('/auth/me');
-    setUser(me.user);
-    setCompanies(me.companies || []);
-    return me;
+    setUser(data.user);
+    applyCompanies(extractCompanies(data));
+    return data;
   }
 
   function logout() {
@@ -86,9 +96,7 @@ function AuthProvider({ children }) {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-// Punto único de entrada para envolver la app. Hoy solo trae el
-// auth, pero si el grupo agrega más contexto global (tema, etc.)
-// entra aquí sin tocar App.jsx.
+// envuelve la app; si se agrega otro provider global entra aquí
 export function AppProviders({ children }) {
   return <AuthProvider>{children}</AuthProvider>;
 }

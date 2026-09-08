@@ -3,27 +3,17 @@ const API_BASE_URL = 'http://localhost:8000/api';
 const TOKEN_KEY = 'farmixpro_token';
 const COMPANY_KEY = 'farmixpro_company_id';
 
-/**
- * Error personalizado para las peticiones que fallan.
- * Guardamos "errors" aparte del mensaje general porque el backend,
- * en una respuesta 422, manda un objeto con el detalle de qué campo
- * falló y por qué — eso es lo que necesitamos para pintar los
- * mensajes de validación debajo de cada input en los formularios.
- */
+// separa "errors" del mensaje general para poder marcar el campo que falló
 export class ApiError extends Error {
   constructor(message, errors, status) {
     super(message);
     this.name = 'ApiError';
-    this.errors = errors; // objeto { campo: [mensajes] } o null
-    this.status = status; // 401, 422, etc.
+    this.errors = errors;
+    this.status = status;
   }
 }
 
-/**
- * Función central: arma la petición, agrega los headers necesarios,
- * y desempaqueta el envelope { success, message, data, errors } que
- * usa todo el API de FarmixPro.
- */
+// arma la petición y desempaqueta el envelope {success, message, data, errors}
 async function request(endpoint, { method = 'GET', body } = {}) {
   const headers = {
     Accept: 'application/json',

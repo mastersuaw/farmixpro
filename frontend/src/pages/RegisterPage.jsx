@@ -46,7 +46,7 @@ export default function RegisterPage() {
 
   return (
     <div className="page-center">
-      <Favicon variant="color" size="sm" />
+      <Favicon variant="color" size="auth" />
       <div className="auth-container">
         <h2>Crear cuenta</h2>
         <p>Regístrate para empezar a usar FarmixPro</p>

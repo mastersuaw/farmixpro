@@ -29,7 +29,7 @@ export default function LoginPage() {
 
   return (
     <div className="page-center">
-      <Favicon variant="color" size="sm" />
+      <Favicon variant="color" size="auth" />
       <Login
         subtitle="Entra con tu cuenta de FarmixPro"
         onSubmit={handleSubmit}
